@@ -19,3 +19,13 @@ Chrome extension that searches configured Bugzilla instances for selected bug nu
     Multiple selection is supported - will open as a "search results" page.
     
 # Examples
+
+The following "selection" formats are all supported:
+
+    single number: 1000
+
+    multiple numbers with comma/space separator: 1000,1001
+
+    "bug" prefix, case-insensitive, with/without '#': bug#1000 BUG1001
+
+    any combination of the above: 1000 bug1001,bug#1002
