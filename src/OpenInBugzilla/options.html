@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Open-In-Bugzilla Options</title>
+		<script type='text/javascript' src='https://code.jquery.com/jquery-1.9.1.js'></script>
+		<script src="options.js"></script>
+	</head>
+	<style type="text/css">
+		table.mytable {
+		font-family: verdana,arial,sans-serif;
+		}
+		table.mytable th {
+		font-size:50px;
+		}
+		table.imagetable td {
+		font-size:15px;
+		}
+	</style>
+	<body>
+		<table align="center" class="mytable">
+			<tr>
+				<th colspan="2" align="center"><img src="lookbug-128.png"/></th>
+			</tr>
+			<tr>
+				<th colspan="2" align="center">Open In Bugzilla</th>
+			</tr>
+			<tr>
+				<td style="max-width:100%">
+					<input type="text" value="" id="newBugzillaServer" style="width:100%">
+				</td>
+				<td align="center">
+					<button type="button" id="addServerButton"/>Add Bugzilla server</button>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<select id="bugzillaServers" size="10" multiple style="width:500px; background: white;"></select>
+				</td>
+				<td align="center">
+					<button type="button" id="removeServerButton"/>Remove Bugzilla server</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">(C) 2015 Zvika Meiseles</th>
+			</tr>
+		</table>
+	</body>
+</html>
