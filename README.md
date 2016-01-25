@@ -15,7 +15,7 @@ Chrome extension that searches configured Bugzilla instances for selected bug nu
 (2) Configure your Bugzilla URL in the extension's "Options" page
     Multiple bugzilla servers are supported.
 
-(3) Whenever a number is "selected" on a page, right-click and follow the menu to open the bug with the corresponding #
+(3) Whenever a number is "selected" on a page, right-click and follow the menu to open the bug with the corresponding #.
     Multiple selection is supported - will open as a "search results" page.
     
 # Examples
