@@ -20,17 +20,22 @@
 	<body>
 		<table align="center" class="mytable">
 			<tr>
-				<th colspan="2" align="center"><img src="lookbug-128.png"/></th>
+				<th colspan="3" align="center"><img src="lookbug-128.png"/></th>
 			</tr>
 			<tr>
-				<th colspan="2" align="center">Open In Bugzilla</th>
+				<th colspan="3" align="center">Open In Bugzilla</th>
 			</tr>
 			<tr>
 				<td style="max-width:100%">
-					<input type="text" value="" id="newBugzillaServer" style="width:100%">
+					URL:<input type="text" value="" id="newBugzillaServer" style="width:100%">
+					Alias:<input type="text" value="" id="newBugzillaServerAlias" style="width:100%">
+				</td>
+				<td align="left">
+					<input type="radio" name="serverType" id="serverType" value="Bugzilla" checked> Bugzilla<br>
+					<input type="radio" name="serverType" id="serverType" value="Zendesk"> Zendesk
 				</td>
 				<td align="center">
-					<button type="button" id="addServerButton"/>Add Bugzilla server</button>
+					<button type="button" id="addServerButton"/>Add server</button>
 				</td>
 			</tr>
 			
@@ -38,12 +43,13 @@
 				<td>
 					<select id="bugzillaServers" size="10" multiple style="width:500px; background: white;"></select>
 				</td>
+				<td/>
 				<td align="center">
-					<button type="button" id="removeServerButton"/>Remove Bugzilla server</button>
+					<button type="button" id="removeServerButton"/>Remove server</button>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">(C) 2015 Zvika Meiseles</th>
+				<td colspan="3" align="center">(C) 2015 Zvika Meiseles</th>
 			</tr>
 		</table>
 	</body>

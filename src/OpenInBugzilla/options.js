@@ -1,20 +1,53 @@
-function commit2Storage(){
-	var serverList = [];
-	$("#bugzillaServers option").each(function()
-	{
-		serverList.push($(this).val());
+function serverObject(type, name, url){
+	this.name = name;
+	this.type = type;
+	this.url = url;
+}
+
+function updateUI(){
+	var serverList = getServerList();
+
+	$('#bugzillaServers').find('option').remove().end();
+	$.each( serverList, function( key, value ) {
+		$('#bugzillaServers').append('<option value="' + value.url + '"> ' + value.url + '</option>');
 	});
-	if (serverList.length == 0)
-		localStorage.removeItem("serverList");
-	else
-		localStorage["serverList"] = serverList;
+	$('#newBugzillaServer').val("");
+	$('#newBugzillaServerAlias').val("");
+	
 	chrome.extension.getBackgroundPage().window.location.reload();
 }
 
-function addToList(value){
-	$('#bugzillaServers').append('<option value="' + value + '"> ' + value + '</option>');
-	$('#newBugzillaServer').val("");
-	commit2Storage();
+function getServerList(){
+	var serverList = [];
+	try{
+		serverList = JSON.parse(localStorage["serverList"]);
+	}
+	catch (e) {}
+	
+	return serverList;
+}
+
+function addToList(type, name, url){
+	var serverList = getServerList();
+	
+	if ((name == undefined) || (name == ""))
+		name = "Server " + serverList.length;
+	serverList.push(new serverObject(type, name, url));
+	localStorage["serverList"] = JSON.stringify(serverList);
+	updateUI();
+}
+
+function removeFromList(url){
+	var serverList = getServerList();
+	
+	for (index = 0; index < serverList.length; index++){
+		if (serverList[index].url == url){
+			serverList.splice(index, 1);
+			break;
+		}
+	}
+	localStorage["serverList"] = JSON.stringify(serverList);
+	updateUI();
 }
 
 $(function(){
@@ -25,28 +58,34 @@ $(function(){
 		});
 	});
 	$(document).on('click','#addServerButton',function(){
-		var value = $('#newBugzillaServer').val().toString();
+		var value = $('#newBugzillaServer').val();
+		var alias = $('#newBugzillaServerAlias').val();
+		var type = $('#serverType:checked').val().toString();
 		
-		$.ajax({
-			url: value,
-			type: 'HEAD',
-			error: function (err) {
-				if (err.status == 0)
-					addToList(value);
-				else
-					alert("Can't access " + value);
-			}
-		});
+		if (value != undefined) {
+			$.ajax({
+				url: value.toString(),
+				type: 'HEAD',
+				error: function (err) {
+					if (err.status == 0)
+						addToList(type, alias, value);
+					else
+						alert("Can't access " + value.toString());
+				}
+			});
+		}
 	});
 	$(document).on('click','#removeServerButton',function(){
-		$("#bugzillaServers option:selected").remove();
-		commit2Storage();
+		removeFromList($("#bugzillaServers option:selected").val().toString());
 	});
+	updateUI();
+	/*
 	var serverListStr = localStorage["serverList"];
 	if ((serverListStr != undefined) && (serverListStr != null)){
 		var serverList = serverListStr.split(",");
 		$.each( serverList, function( key, value ) {
-			$('#bugzillaServers').append('<option value="' + value + '"> ' + value + '</option>');
+			$('#bugzillaServers').append('<option value="' + value.url + '"> ' + value.url + '</option>');
 		});
 	}
+	*/
 });
